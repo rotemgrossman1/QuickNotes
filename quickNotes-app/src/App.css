@@ -52,8 +52,81 @@ form>button {
   padding: 10px;
 }
 
-.noteDate{
+/* Container for the grid */
+.noteList {
+  display: grid;
+  /* This creates 5 equal-width columns */
+  grid-template-columns: repeat(5, 1fr);
+  gap: 20px;
+  padding: 20px;
+}
+
+/* Styling for each individual note */
+.note {
+  background-color: #fdfd96; /* Classic yellow sticky note color */
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+  min-height: 150px;
+  display: flex;
+  flex-direction: column;
+  word-wrap: break-word; /* Prevents long text from breaking the layout */
+}
+
+.noteText {
+  font-family: 'Arial', sans-serif;
+  font-size: 16px;
+  color: #333;
+}
+.App{
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+  justify-content: center;
+  min-height: 100vh;
+  background-color: #f0f0f0;
+}
+/* Optional: Style the form container */
+form {
+  margin-top: 20px;
+  margin-bottom: 30px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 40%;
+  /*place in middle of screen*/
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/*button in form*/
+form>button {
+  width: 70%;
+  padding: 10px;
+}
+
+.noteDate {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; /* This centers the button and text vertically */
   font-size: 10px;
   color: #666;
-  line-height: 1.5;
+  margin-bottom: 10px; /* Adds a little breathing room above the note text */
+}
+
+
+/* Optional: Make the button look a bit cleaner */
+.noteDelete button {
+  background: none;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  color: #333;
+  cursor: pointer;
+  padding: 2px 6px;
+}
+
+.noteDelete button:hover {
+  background-color: #ffcccc;
+  border-color: #ff0000;
 }
