@@ -47,7 +47,7 @@ form {
 }
 
 /*button in form*/
-button {
+form>button {
   width: 70%;
   padding: 10px;
 }

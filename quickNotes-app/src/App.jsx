@@ -9,11 +9,14 @@ function App() {
     const addNote = (note) => {
       setNotes([...notes, {text: note, date: new Date().toString().split(' ').slice(0, 5).join(' ')}])
     }
+    const deleteNote = (noteIdx) => {
+      setNotes(notes.filter((note, index) => index !== noteIdx))
+    }
   return (
     <>
       <div className="App">
         <Form onAddNote={addNote}/>
-        <NoteList notes={notes}/>
+        <NoteList notes={notes} onDeleteNote={deleteNote}/>
       </div>
     </>
   )
