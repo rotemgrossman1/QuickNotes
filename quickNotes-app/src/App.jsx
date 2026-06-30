@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './App.css'
 import Note from './Note'
 import NoteList from './NoteList'
@@ -6,7 +6,14 @@ import Form from './Form'
 import { MantineProvider, Modal } from '@mantine/core';
 function App() {
   const [openNote, setOpenNote] = useState(null)
-  const [notes, setNotes] = useState([])
+  const [notes, setNotes] = useState(()=>{
+    const savedNotes = localStorage.getItem('myNotes')
+    return savedNotes ? JSON.parse(savedNotes) : []
+  })
+
+  useEffect(() => {
+    localStorage.setItem('myNotes', JSON.stringify(notes))
+  }, [notes])
   const [editingIdx, setEditingIdx] = useState(null)
   const [activeNoteIdx, setActiveNoteIdx] = useState(null);
 
