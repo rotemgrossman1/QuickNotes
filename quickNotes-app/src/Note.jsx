@@ -1,14 +1,15 @@
 import { useState } from 'react'
 
-export default function Note( {note, onDeleteNote, index} ){
-    const deleteHandler = () => {
+export default function Note( {note, onDeleteNote, index, onHandleNoteClick} ){
+    const deleteHandler = (e) => {
+        e.stopPropagation();
         if(window.confirm("Are you sure you want to delete this note?")){
             onDeleteNote(index)
         }
     }
     return(
         <>
-            <div className="note">
+            <div className="note" onClick={() =>onHandleNoteClick(note)}>
                 <div className="noteDate">
                     {note.date}
                     <div className="noteDelete">
