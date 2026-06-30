@@ -6,8 +6,8 @@ import Form from './Form'
 function App() {
 
   const [notes, setNotes] = useState([])
-    const addNote = (note) => {
-      setNotes([...notes, {text: note, date: new Date().toString().split(' ').slice(0, 5).join(' ')}])
+    const addNote = (title, note) => {
+      setNotes([...notes, {title: title, text: note, date: new Date().toString().split(' ').slice(0, 5).join(' ')}])
     }
     const deleteNote = (noteIdx) => {
       setNotes(notes.filter((note, index) => index !== noteIdx))

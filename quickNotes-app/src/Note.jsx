@@ -15,6 +15,9 @@ export default function Note( {note, onDeleteNote, index} ){
                         <button onClick={deleteHandler}>X</button>
                     </div>
                 </div>
+                <div className="noteTitle">
+                    {note.title}
+                </div>
                 <div className = "noteText">
                     {note.text}
                 </div>
