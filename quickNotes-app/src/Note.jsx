@@ -9,7 +9,7 @@ export default function Note( {note, onDeleteNote, index, onHandleNoteClick} ){
     }
     return(
         <>
-            <div className="note" onClick={() =>onHandleNoteClick(note)}>
+            <div className="note" onClick={() =>onHandleNoteClick(note, index)}>
                 <div className="noteDate">
                     {note.date}
                     <div className="noteDelete">

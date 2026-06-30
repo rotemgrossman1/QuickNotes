@@ -7,27 +7,62 @@ import { MantineProvider, Modal } from '@mantine/core';
 function App() {
   const [openNote, setOpenNote] = useState(null)
   const [notes, setNotes] = useState([])
+  const [editingIdx, setEditingIdx] = useState(null)
+  const [activeNoteIdx, setActiveNoteIdx] = useState(null);
+
+    const handleNoteClick = (note, index) => {
+      setOpenNote(note);
+      setActiveNoteIdx(index); // Store the index here!
+    };
     const addNote = (title, note) => {
       setNotes([...notes, {title: title, text: note, date: new Date().toString().split(' ').slice(0, 5).join(' ')}])
     }
     const deleteNote = (noteIdx) => {
       setNotes(notes.filter((note, index) => index !== noteIdx))
     }
-    const handleNoteClick = (note) => {
-      setOpenNote(note)
-    }
     const handleNoteClose = () => {
       setOpenNote(null)
     }
+    const updateNote = (title, note) => {
+      if (editingIdx !== null) {
+      const updatedNotes = [...notes];
+          updatedNotes[editingIdx] = { 
+            ...updatedNotes[editingIdx], // Keep original data (including the original 'date')
+            title: title, 
+            text: note, 
+            updatedDate: new Date().toString().split(' ').slice(0, 5).join(' ') // Add this new field
+          };
+          setNotes(updatedNotes);
+          setEditingIdx(null); // Stop editing mode
+          handleNoteClose();   // Close the modal
+        }
+      }
   return (
     <>
      <Modal opened={!!openNote} onClose={handleNoteClose} title="Note Details">
-        <h2>{openNote?.title}</h2>
-        <p>{openNote?.text}</p>
-        <small>{openNote?.date}</small>
-    </Modal>
+        {editingIdx !== null ? (
+          <Form 
+            onSubmit={updateNote} 
+            initialTitle={openNote.title} 
+            initialNote={openNote.text} 
+          />
+        ) : (
+          <>
+            <h2>{openNote?.title}</h2>
+            <p>{openNote?.text}</p>
+            <small>Created: {openNote?.date}</small>
+            
+            {/* Conditionally show the updated date only if it exists */}
+            {openNote?.updatedDate && (
+              <p><small>Updated: {openNote?.updatedDate}</small></p>
+            )}
+            
+            <button onClick={() => setEditingIdx(activeNoteIdx)}>Edit</button>
+          </>
+        )}
+      </Modal>
       <div className="App">
-        <Form onAddNote={addNote}/>
+        <Form onSubmit={addNote} />
         <NoteList 
           notes={notes} 
           onDeleteNote={deleteNote} 
